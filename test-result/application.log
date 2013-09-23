@@ -1,0 +1,5 @@
+19 Sep 2013 18:32:12,794 INFO  ~ Starting /home/nigel/development/projects/ractive
+19 Sep 2013 18:32:13,178 WARN  ~ You're running Play! in DEV mode
+19 Sep 2013 18:32:13,232 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+19 Sep 2013 18:32:21,539 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+19 Sep 2013 18:32:21,556 INFO  ~ Application 'ractive' is now started !

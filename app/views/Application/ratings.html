@@ -1,0 +1,68 @@
+#{extends 'main.html' /}
+#{set title:'ratings' /}
+
+Testing the ratings
+
+<div id='example'>
+
+<script id='template' type='text/ractive'>
+<p>{{rating}}</p>
+
+
+<p class='current-rating'>current rating: <strong>{{rating}}</strong></p> 
+
+<div class='ratings'>
+  <h3>Clickable Rating</h3>
+  
+  <div class='rating'>
+    {{#stars:i}}
+      <span class='star {{ rating > i ? "selected" : "" }} {{ highlight > i ? "highlighted" : "" }}'
+            on-tap='select:{{ i+1 }}'
+            on-hover='highlight:{{ i+1 }}'
+      >★</span>
+    {{/stars}}
+  </div>
+
+  <h3>Readonly rating</h3>
+  
+  <div class='rating readonly'>
+    {{#stars:i}}
+      <span class='star {{ rating > i ? "selected" : "" }}'>★</span>
+    {{/stars}}
+  </div>
+</div>
+</script>
+
+<script src=@{'public/javascripts/Ractive.js'}></script>
+
+<script>
+	  var ractive = new Ractive({
+	  el: 'example',
+	  template: '#template',
+	  data: {
+	    rating: 5,
+	    stars: new Array( 10 ) // just so we have something to iterate over
+	  }
+	});
+	
+	ractive.on({
+	  select: function ( event, rating ) {
+	    this.set( 'rating', rating );
+	  },
+	  highlight: function ( event, rating ) {
+	    if ( event.hover ) {
+	      this.set( 'highlight', rating );
+	    } else {
+	      this.set( 'highlight', 0 );
+	    }
+	  }
+	});
+	
+	// if you wanted to save the rating...
+	ractive.observe( 'rating', function ( rating ) {
+	  // jQuery pseudo-code:
+	  // $.post( backendURL, rating, successHandler );
+	  console.log( 'saving rating: ', rating );
+	}, { init: false }); // init: false so it doesn't save until it changes
+</script>	
+	

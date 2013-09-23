@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+    <h1>My blank page</h1>
+    
+    <div id='container'></div>
+    
+    <script id='myTemplate' type='text/ractive'>
+        <p>{{greeting}}, {{recipient}}!</p>
+    </script>
+    
+    <script src=@{'public/javascripts/Ractive.js'}></script>
+    
+    <script>
+        var ractive = new Ractive({
+            el: 'container',
+            template: '#myTemplate',
+            data: { greeting: 'Hello', recipient: 'world' }
+        });
+    </script>

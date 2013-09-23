@@ -1,0 +1,75 @@
+#{extends 'main.html' /}
+#{set title:'ratings' /}
+
+<h1>Testing a counter</h1>
+
+<div id='example'>
+
+<script id='template' type='text/ractive'>
+	<p>Calling queue number {{queueNum}}<p> 
+	<p>The current number of people in the queue are {{queue.length}}<p>
+	
+	<p>Remaining people in the queue</p>
+	{{#queue}}
+		<li>{{name}}, queueNo: {{queueNo}}</li>
+	{{/queue}}
+	
+	<button on-tap='skip'>Skip current call</button>
+	<button on-tap='delete'>Delete current patient</button>
+	<input ><button on-tap='add'>Add a patient</button>
+	<button on-tap='delSpecific'>Delete specific patient</button>
+	
+</script>
+
+<script src=@{'public/javascripts/Ractive.js'}></script>
+
+<script>
+	  
+	  var ractive, people;
+	  
+	  people = [
+  	    { name: 'Homer', queueNo: '1' },
+        { name: 'Marge', queueNo: '5' },
+        { name: 'Bart', queueNo: '10' },
+        { name: 'Lisa', queueNo: '2' },
+	  ];
+	  
+	  	
+	  ractive = new Ractive({
+	  el: 'example',
+	  template: '#template',
+	  data: {
+	    queue: people, //the queue is an array of people
+	    queueNum: people[(people.length-1)].queueNo //getting the queue number from the person
+	  }
+	});
+	
+	ractive.observe({
+	  'queue.0.queueNo': alert('here')
+    });
+   
+	ractive.on({
+	  skip: function () {
+	    console.log( 'Skipping this patient to next!' );
+	    var p = people.pop();
+	    console.log(people.length);
+	    people.unshift(p);
+	    console.log(people.length);
+	    ractive.update();
+	  },
+	  delete: function () {
+	    console.log( 'deleting patient from queue totally');
+	    people.pop();
+	    ractive.update();
+	  },
+	  add: function () {
+	  	
+	  },
+	  delSpecific: function () {
+	  
+	  }
+  	});
+	
+	
+</script>	
+	
